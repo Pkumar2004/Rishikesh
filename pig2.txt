@@ -1,0 +1,55 @@
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class PigLatinConverter {
+
+    // Method to translate Pig Latin to English
+    public static String pigLatinToEnglish(String word) {
+        // Remove punctuation
+        word = word.replaceAll("[^a-zA-Z]", "");
+
+        if (word.endsWith("way") || word.endsWith("yay")) {
+            return word.substring(0, word.length() - 3);
+        } else if (word.endsWith("ay")) {
+            String coreWord = word.substring(0, word.length() - 2);
+            Pattern pattern = Pattern.compile("([bcdfghjklmnpqrstvwxyz]+)(.*)");
+            Matcher matcher = pattern.matcher(coreWord);
+            if (matcher.matches()) {
+                return matcher.group(2) + matcher.group(1);
+            }
+        }
+        return word;
+    }
+
+    // Method to translate a Pig Latin text to English
+    public static String translatePigLatin(String text) {
+        String[] words = text.split("\\s+");
+        StringBuilder translatedWords = new StringBuilder();
+        for (String word : words) {
+            translatedWords.append(pigLatinToEnglish(word)).append(" ");
+        }
+        return translatedWords.toString().trim();
+    }
+
+    // Method to count the number of words
+    public static int wordCount(String text) {
+        String[] words = text.split("\\s+");
+        return words.length;
+    }
+
+    public static void main(String[] args) {
+        // Example Pig Latin text
+        String pigLatinText = "ellohay orldway";
+
+        // Translate Pig Latin text to English
+        String translatedText = translatePigLatin(pigLatinText);
+
+        // Count the number of words
+        int count = wordCount(translatedText);
+
+        // Output the results
+        System.out.println("Translated Text: " + translatedText);
+        System.out.println("Word Count: " + count);
+    }
+}
+
