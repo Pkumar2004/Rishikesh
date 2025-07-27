@@ -1,4 +1,4 @@
-# Rishikesh
+# prem
 Run the Pig Latin Scripts to find word count
 -- Load the data from a text file
 data = LOAD 'input.txt' USING PigStorage() AS (line:chararray);
